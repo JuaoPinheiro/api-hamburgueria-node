@@ -66,15 +66,17 @@ app.get('/order/:id', method, checkUserId,(request, response) => {
     return response.json(checkOrder)
  })
 
-app.patch('/order/:id', method, checkUserId,(request, response) => {
-    const {custumOrder, clientName, price} = request.body
+ app.patch('/order/:id', checkUserId, method, (request, response) => {
+    
     const index = request.userIndex
+    const {custumOrder, clientName, price } = order[index]
     const id = request.userId
-    const updateStatus = {id, custumOrder, clientName, price, status:"Pedido Finalizado"}
+    const finalstatus = {id, custumOrder, clientName, price, status: "Pedido Finalizado" }
 
-    return response.json(updateStatus)
+    order[index] = finalstatus
 
-
+    return response.json(finalstatus)
+    
 })
 
 
